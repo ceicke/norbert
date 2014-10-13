@@ -28,6 +28,7 @@ class Album
    end  
 
    @@pid = Process.spawn("mpg123 #{tracklist}", :out => '/dev/null', :err => '/dev/null')
+   p @@pid
   end
 
   private
@@ -36,6 +37,7 @@ class Album
   end
 
   def kill_other_procs
+    p @@pid
     unless @@pid.nil?
       Process.kill('SIGTERM', @@pid)
       @@pid = nil

@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/ceicke/norbert"
   spec.license       = "MIT"
 
-  spec.files         = ['lib/norbert.rb', 'lib/norbert/album.rb']
-  spec.executables   = ['norbert']
+  spec.files         = ['lib/norbert.gpio.rb', 'lib/norbert.cmd.rb', 'lib/norbert/album.rb']
+  spec.executables   = ['norbert.gpio', 'norbert.cmd']
   spec.test_files    = ['tests/test_norbert.rb']
   spec.require_paths = ["lib"]
 end

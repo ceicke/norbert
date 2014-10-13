@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'norbert'
+require 'norbert.cmd'
 
 n = Norbert.new
 n.run

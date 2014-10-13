@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'norbert.gpio'
+
+n = Norbert.new
+n.run
+
