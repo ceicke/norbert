@@ -41,7 +41,7 @@ def main():
 
     # Buttons
     button_albums = {}
-    button_albums[21] = '1'
+    button_albums[13] = '1'
     button_albums[16] = '2'
     button_albums[19] = '3'
     button_albums[20] = '4'
@@ -54,8 +54,6 @@ def main():
 
     for input_button in button_albums.keys():
         GPIO.setup(input_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-    for input_button in button_albums.keys():
         GPIO.add_event_detect(input_button, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
 
     while True:
