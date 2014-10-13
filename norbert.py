@@ -26,7 +26,7 @@ class Album:
 
         music_directory = '/home/norbert/music/' + self.album_id + '/*.mp3'
         playlist = ''
-        for file in glob.glob(music_directory):
+        for file in sorted(glob.glob(music_directory)):
             playlist += ' "' + file + '"'
         Album.pid = subprocess.Popen(['mpg123 ' + playlist], shell=True, stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w')).pid
         Album.playing_album = self.album_id
