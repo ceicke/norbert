@@ -11,9 +11,13 @@ import RPi.GPIO as GPIO
 class Album:
 
     pid = None
+    playing_album = None
 
     def __init__(self, album_id):
         self.album_id = album_id
+
+    def album_id():
+        self.album_id
 
     def play(self):
         if Album.pid is not None:
@@ -25,6 +29,7 @@ class Album:
         for file in glob.glob(music_directory):
             playlist += ' "' + file + '"'
         Album.pid = subprocess.Popen(['mpg123 ' + playlist], shell=True, stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w')).pid
+        Album.playing_album = self.album_id
 
 def main():
 
@@ -35,38 +40,23 @@ def main():
     GPIO.output(12, GPIO.HIGH)
 
     # Buttons
-    input_buttons = [16, 19, 21, 20, 26]
-
-    for input_button in input_buttons:
-        GPIO.setup(input_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    #GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    button_albums = {}
+    button_albums[21] = '1'
+    button_albums[16] = '2'
+    button_albums[19] = '3'
+    button_albums[20] = '4'
+    button_albums[26] = '5'
 
     def buttonPressed(channel):
-        a = None
-        if channel == 21:
-            a = Album('1')
-        elif channel == 16:
-            a = Album('2')
-        elif channel == 20:
-            a = Album('3')
-        elif channel == 19:
-            a = Album('4')
-        elif channel == 26:
-            a = Album('5')
-        if a is not None:
+        a = Album(button_albums[channel])
+        if a.album_id is not Album.playing_album:
             a.play()
-    for input_button in input_buttons:
-        GPIO.add_event_detect(input_button, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
 
-    #GPIO.add_event_detect(16, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    #GPIO.add_event_detect(21, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    #GPIO.add_event_detect(20, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    #GPIO.add_event_detect(19, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    #GPIO.add_event_detect(26, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    for input_button in button_albums.keys():
+        GPIO.setup(input_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    for input_button in button_albums.keys():
+        GPIO.add_event_detect(input_button, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
 
     while True:
         time.sleep(0.0)
