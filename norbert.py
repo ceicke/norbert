@@ -65,10 +65,10 @@ def main():
     while True:
         time.sleep(0.0)
 
-    GPIO.cleanup()
 
 def exit_gracefully(signum, frame):
     GPIO.output(12, GPIO.LOW)
+    GPIO.cleanup()
     if Album.pid is not None:
         #os.kill(Album.pid,15)
         subprocess.call(['killall','mpg123'])
