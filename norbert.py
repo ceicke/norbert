@@ -35,11 +35,15 @@ def main():
     GPIO.output(12, GPIO.HIGH)
 
     # Buttons
-    GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    input_buttons = [16, 19, 21, 20, 26]
+
+    for input_button in input_buttons:
+        GPIO.setup(input_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    #GPIO.setup(16, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    #GPIO.setup(21, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    #GPIO.setup(20, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    #GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    #GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     def buttonPressed(channel):
         a = None
@@ -55,12 +59,14 @@ def main():
             a = Album('5')
         if a is not None:
             a.play()
+    for input_button in input_buttons:
+        GPIO.add_event_detect(input_button, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
 
-    GPIO.add_event_detect(16, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    GPIO.add_event_detect(21, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    GPIO.add_event_detect(20, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    GPIO.add_event_detect(19, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
-    GPIO.add_event_detect(26, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    #GPIO.add_event_detect(16, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    #GPIO.add_event_detect(21, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    #GPIO.add_event_detect(20, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    #GPIO.add_event_detect(19, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
+    #GPIO.add_event_detect(26, GPIO.FALLING, callback=buttonPressed, bouncetime=300)
 
     while True:
         time.sleep(0.0)
