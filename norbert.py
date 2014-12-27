@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import os
 import signal
@@ -7,13 +8,18 @@ import sys
 import subprocess
 import glob
 import RPi.GPIO as GPIO
+import sqlite3 as lite
 
 class Album:
 
     pid = None
     playing_album = None
 
-    def __init__(self, album_id):
+    def __init__(self, album_id, con):
+        with con:
+            cur = con.cursor()
+            cur.execute('INSERT INTO AlbumStarts VALUES (?,?)', (album_id, int(time.time()) ))
+
         self.album_id = album_id
 
     def album_id():
@@ -33,6 +39,12 @@ class Album:
 
 def main():
 
+    con = lite.connect('norbert.db')
+
+    with con:
+        cur = con.cursor()
+        cur.execute('CREATE TABLE IF NOT EXISTS AlbumStarts(AlbumNumber INTEGER, StartTime INTEGER)')
+
     GPIO.setmode(GPIO.BCM)
 
     # Status LED
@@ -48,7 +60,7 @@ def main():
     button_albums[26] = '5'
 
     def buttonPressed(channel):
-        a = Album(button_albums[channel])
+        a = Album(button_albums[channel], con)
         if a.album_id is not Album.playing_album:
             a.play()
 
