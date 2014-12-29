@@ -15,7 +15,10 @@ class Album:
     pid = None
     playing_album = None
 
-    def __init__(self, album_id, con):
+    def __init__(self, album_id):
+
+        con = lite.connect('norbert.db')
+
         with con:
             cur = con.cursor()
             cur.execute('INSERT INTO AlbumStarts VALUES (?,?)', (album_id, int(time.time()) ))
@@ -60,7 +63,7 @@ def main():
     button_albums[26] = '5'
 
     def buttonPressed(channel):
-        a = Album(button_albums[channel], con)
+        a = Album(button_albums[channel])
         if a.album_id is not Album.playing_album:
             a.play()
 
