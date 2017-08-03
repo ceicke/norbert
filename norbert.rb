@@ -35,7 +35,7 @@ controlButtons.each do |controlButton|
   RPi::GPIO.setup controlButton, :as => :input, :pull => :up
 end
 
-def toggle_pause 
+def toggle_pause
   $mpd.pause=($pause_state)
   $pause_state = !$pause_state
 end
@@ -45,7 +45,12 @@ def set_volume(volume)
 end
 
 def increase_volume
-  if $current_volume <= 98
+  if Time.now.hour <= 7
+    max_volume = 94
+  else
+    max_volume = 100
+  end
+  if $current_volume <= (max_volume - 2)
     $current_volume += 2
     set_volume($current_volume)
   end
