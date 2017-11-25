@@ -29,7 +29,7 @@ controlButtons.each do |controlButton|
   RPi::GPIO.setup controlButton, :as => :input, :pull => :up
 end
 
-def toggle_pause 
+def toggle_pause
   $mpd.pause=($pause_state)
   $pause_state = !$pause_state
 end
@@ -67,33 +67,33 @@ $mpd.clear
 
 def card_control
 
-file = File.read('/root/norbert-database.json')
-database = JSON.parse(file)
+  file = File.read('/root/norbert-database.json')
+  database = JSON.parse(file)
 
-readers = NFC::Reader.all
-readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |tag|
-  card_uuid = tag.uid_hex.upcase
-  database.each do |entry|
-    if entry['card_uuid'] == card_uuid && (card_uuid != $currently_playing_uuid or $mpd.stopped?)
-      $currently_playing_uuid = card_uuid
-      $mpd.stop
-      $mpd.clear
-      $mpd.where({album: entry['album']}, {add: true})
-      $mpd.play
+  readers = NFC::Reader.all
+  readers[0].poll(IsoDep::Tag, Mifare::Classic::Tag, Mifare::Ultralight::Tag) do |tag|
+    card_uuid = tag.uid_hex.upcase
+    database.each do |entry|
+      if entry['card_uuid'] == card_uuid && (card_uuid != $currently_playing_uuid or $mpd.stopped?)
+        $currently_playing_uuid = card_uuid
+        $mpd.stop
+        $mpd.clear
+        $mpd.where({album: entry['album']}, {add: true})
+        $mpd.play
+      end
     end
   end
 end
-end
 
 def button_control
-while(true) 
-  toggle_pause if RPi::GPIO.low? $stopButton
-  $mpd.next if RPi::GPIO.low? $nextButton
-  $mpd.previous if RPi::GPIO.low? $previousButton
-  increase_volume() if RPi::GPIO.low? $volumeUpButton
-  decrease_volume() if RPi::GPIO.low? $volumeDownButton
-  sleep(0.2)
-end
+  while(true)
+    toggle_pause if RPi::GPIO.low? $stopButton
+    $mpd.next if RPi::GPIO.low? $nextButton
+    $mpd.previous if RPi::GPIO.low? $previousButton
+    increase_volume() if RPi::GPIO.low? $volumeUpButton
+    decrease_volume() if RPi::GPIO.low? $volumeDownButton
+    sleep(0.2)
+  end
 end
 
 button_thread = Thread.new{button_control()}
