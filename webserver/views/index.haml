@@ -1,0 +1,14 @@
+.jumbotron
+  %h1.display-3 Welcome to Norbert
+  %p.lead
+    %a.btn.btn-primary.btn-lg{href: '/new'} Upload a new album
+
+.card-columns
+  - @albums.each do |album|
+    .card{style: "width: 20rem;"}
+      .card-body
+        %h4.card-title= album.album_name
+        %p.card-text
+          = "Listened: #{album.listen_count} times"
+          .clearfix
+          = "UUID: #{album.card_uuid}"

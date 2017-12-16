@@ -1,0 +1,47 @@
+- if @uuid.nil?
+  .alert.alert-danger
+    %h3.alert-heading No card detected
+    %p Norbert has not detected a card yet. Please hold one near Norbert so that it can be recognized and then refresh this page.
+- else
+  %form.dropzone#mp3-dropzone{action: '/upload', method: 'post', enctype: 'multipart/form-data'}
+    .form-group
+      %label{for: "card_uuid"} Card UUID
+      %input#card_uuid.form-control.disabled{name: "card_uuid", type: "text", value: @uuid, disabled: true}
+    .form-group
+      %label{for: "album_title"} Album title
+      %input#album_title.form-control{name: "album_title", type: "text"}
+    .fallback
+      .form-group
+        %input{type: "file", name: "file"}
+    %input.btn.btn-primary#start-upload{type: "submit"}
+    .clearfix
+
+:javascript
+  Dropzone.autoDiscover = false;
+
+  mp3Dropzone = new Dropzone("#mp3-dropzone", {
+
+    sending: function(file, xhr, formData) {
+      formData.append("card_uuid", document.getElementById('card_uuid').value);
+      formData.append("album_title", document.getElementById('album_title').value);
+    },
+
+    queuecomplete: function(file) {
+      console.log('all done');
+      window.location.href = '/';
+    },
+    acceptedFiles: ".mp3",
+    parallelUploads: 1,
+    autoProcessQueue: false,
+    timeout: 120000
+  });
+
+  document.getElementById('start-upload').onclick = function(e) {
+    e.preventDefault();
+    if(document.getElementById('album_title').value != '') {
+      document.getElementById('album_title').disabled = true;
+      document.getElementById('album_title').classList.add('disabled');
+      mp3Dropzone.options.autoProcessQueue = true;
+      mp3Dropzone.processQueue();
+    }
+  }

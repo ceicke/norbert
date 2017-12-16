@@ -1,0 +1,11 @@
+source 'http://rubygems.org'
+
+gem 'ruby-mpd'
+gem 'json'
+gem 'rpi_gpio'
+gem 'ruby-nfc'
+gem 'sinatra'
+gem 'sinatra-flash'
+gem 'haml'
+gem 'sqlite3'
+gem 'activerecord'
