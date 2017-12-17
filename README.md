@@ -7,7 +7,7 @@ Here is a video demonstration of the whole project:
 
 ## Part list
 
-Besides the software on this page, you need some hardware. This is the parts list of my setup:
+Besides the software on this page, you need some hardware. This is the part list of my setup:
 
 - [1x Raspberry Pi 3 Starter Kit](https://www.amazon.de/Vilros-Raspberry-Pi-Complete-Kit-Enthalt/dp/B01DC6MKAQ/)
 - [1x NFC Cards](https://www.amazon.de/gp/product/B01EOXFDWS)
