@@ -15,7 +15,7 @@ Besides the software on this page, you need some hardware. This is the part list
 - [1x Switch](https://www.reichelt.de/Kippschalter/2/index.html?ACTION=2&LA=2&GROUPID=7584)
 - [5x Push buttons](https://www.reichelt.de/Drucktaster-Druckschalter/IB-R3S-GN/3/index.html?ACTION=3&LA=2&ARTICLE=105680&GROUPID=7586&artnr=IB+R3S+GN&SEARCH=%252A)
 - [1x 5mm LED](https://www.reichelt.de/LEDs-5-mm/2/index.html?ACTION=2&LA=2&GROUPID=3019)
-- [1x audio cable with angled connector](https://www.reichelt.de/A-V-Kabel-Klinke-/NFKE-MW-25/3/index.html?ACTION=3&LA=446&ARTICLE=109573&GROUPID=5463&artnr=NFKE+MW+25&SEARCH=klinkenkabel)
+- [1x audio cable with angled connector](https://www.reichelt.de/nf-kabel-2-5-mm-stereo-klinkenstecker-winkel-1-8-m-3-pol-nfke-sw-25wg-p192506.html)
 - [1x audio jack](https://www.reichelt.de/Klinkeneinbaubuchsen/EBS-35/3/index.html?ACTION=3&LA=446&ARTICLE=7301&GROUPID=7448&artnr=EBS+35&SEARCH=klinkenbuchse)
 - 1x 1kOhm resistor
 - [Insolating tape](https://www.reichelt.de//2/index.html?ACTION=3;ARTICLE=8973)
